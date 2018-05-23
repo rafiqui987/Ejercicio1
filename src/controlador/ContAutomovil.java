@@ -165,7 +165,7 @@ public class ContAutomovil implements ActionListener {
 
             Automovilall = AutomovilIterator.next();
 
-            Object rowData[] = {Automovilall.getId_automovil(), Automovilall.getPlaca(), Automovilall.getMarca(), Automovilall.getModelo(), Automovilall.getPreciodia(), Automovilall.getGaraje().getId_garaje()};
+            Object rowData[] = {Automovilall.getId_automovil(), Automovilall.getPlaca(), Automovilall.getMarca(), Automovilall.getModelo(), Automovilall.getPreciodia(), Automovilall.getGaraje().getNombre()};
 
             tablaconsulta.addRow(rowData);
 

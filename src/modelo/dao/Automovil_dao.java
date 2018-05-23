@@ -91,13 +91,13 @@ public class Automovil_dao {
         int resultado = 0;
         try {
             dbConection = ConexionDB.getConexion();
-            String updateSQL = "UPDATE  automovil  SET marca  = ?,modelo  =  ?, preciodia = ?, id_garaje= ?" + "  WHERE  placa  =  ?";
+            String updateSQL = "UPDATE  automovil  SET marca  = ?,modelo  =  ?, preciodia = ?" + "  WHERE  placa  =  ?";
             preparedStmt = dbConection.prepareStatement(updateSQL);
             preparedStmt.setString(1, automovil.getMarca());
             preparedStmt.setString(2, String.valueOf(automovil.getModelo()));
             preparedStmt.setString(3, String.valueOf(automovil.getPreciodia()));
-            preparedStmt.setString(4, String.valueOf(automovil.getGaraje().getId_garaje()));
-            preparedStmt.setString(5, automovil.getPlaca());
+            //preparedStmt.setString(4, String.valueOf(automovil.getGaraje().getId_garaje()));
+            preparedStmt.setString(4, automovil.getPlaca());
 
             resultado = preparedStmt.executeUpdate();
             dbConection.close();
