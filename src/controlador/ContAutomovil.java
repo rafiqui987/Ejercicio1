@@ -82,7 +82,7 @@ public class ContAutomovil implements ActionListener {
             } else {
                 Garaje garaje = new Garaje();
                 String Nombre = (String.valueOf(this.vista.jComboBoxGaraje.getSelectedItem()));
-                garaje = modelo.garjeread(Nombre);
+                garaje = modelogaraje.read(Nombre);
                 Automovil automovilCreate = new Automovil();
                 automovilCreate.setPlaca(vista.jTextFieldPlaca.getText());
                 automovilCreate.setMarca(vista.jTextFieldMarca.getText());
@@ -164,7 +164,7 @@ public class ContAutomovil implements ActionListener {
 
             Automovilall = AutomovilIterator.next();
 
-            Object rowData[] = {Automovilall.getId_automovil(), Automovilall.getPlaca(), Automovilall.getMarca(), Automovilall.getModelo(), Automovilall.getPreciodia(), Automovilall.getId_garaje()};
+            Object rowData[] = {Automovilall.getId_automovil(), Automovilall.getPlaca(), Automovilall.getMarca(), Automovilall.getModelo(), Automovilall.getPreciodia(), Automovilall.getGaraje().getId_garaje()};
 
             tablaconsulta.addRow(rowData);
 
@@ -175,7 +175,7 @@ public class ContAutomovil implements ActionListener {
      *
      */
     public void tabla2() {
-        List<Garaje> garajetodos = modelo.garajereadAll();
+        List<Garaje> garajetodos = modelogaraje.readAll();
         Garaje Garajeall;
 
         Iterator<Garaje> GarajeIterator = garajetodos.iterator();

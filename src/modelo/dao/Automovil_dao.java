@@ -36,7 +36,7 @@ public class Automovil_dao {
             preparedStmt.setString(3, automovil.getMarca());
             preparedStmt.setString(4, String.valueOf(automovil.getModelo()));
             preparedStmt.setString(5, String.valueOf(automovil.getPreciodia()));
-            preparedStmt.setString(6, String.valueOf(automovil.getId_garaje()));
+            preparedStmt.setString(6, String.valueOf(automovil.getGaraje().getId_garaje()));
             resultado = preparedStmt.executeUpdate();
             dbConection.close();
             preparedStmt.close();
@@ -68,9 +68,9 @@ public class Automovil_dao {
                 AutomovilRead.setMarca(resultSet.getString("marca"));
                 AutomovilRead.setModelo(resultSet.getInt("modelo"));
                 AutomovilRead.setPreciodia(resultSet.getInt("preciodia"));
-                Garaje.setId_garaje(0);
-                Garaje.setNombre("");
-                Garaje.setDireccion("");
+                Garaje.setId_garaje(resultSet.getInt("id_garaje"));
+                Garaje.setNombre(resultSet.getString("nombre"));
+                Garaje.setDireccion(resultSet.getString("direccion"));
                 AutomovilRead.setGaraje(Garaje);
 
             }
@@ -136,6 +136,7 @@ public class Automovil_dao {
             preparedStmt = dbConection.prepareStatement(selectSQL);
             resultSet = preparedStmt.executeQuery();
             Automovil AutomovilAll;
+            Garaje garaje =new Garaje();
             while (resultSet.next()) {
                 AutomovilAll = new Automovil();
                 AutomovilAll.setId_automovil(resultSet.getInt("id_automovil"));
@@ -143,7 +144,10 @@ public class Automovil_dao {
                 AutomovilAll.setMarca(resultSet.getString("marca"));
                 AutomovilAll.setModelo(resultSet.getInt("modelo"));
                 AutomovilAll.setPreciodia(resultSet.getInt("preciodia"));
-                AutomovilAll.setId_garaje(resultSet.getInt("id_garaje"));
+                garaje.setId_garaje(resultSet.getInt("id_garaje"));
+                garaje.setNombre(resultSet.getString("nombre"));
+                garaje.setDireccion(resultSet.getString("direccion"));
+                AutomovilAll.setGaraje(garaje);
                 listAutomovil.add(AutomovilAll);
             }
             dbConection.close();
@@ -156,58 +160,7 @@ public class Automovil_dao {
         return listAutomovil;
     }
 
-    public List<Garaje> garajereadAll() {
-        List<Garaje> listGaraje = new ArrayList();
+    
 
-        try {
-            dbConection = ConexionDB.getConexion();
-            String selectSQL = "SELECT  *  FROM  garaje";
-            preparedStmt = dbConection.prepareStatement(selectSQL);
-            resultSet = preparedStmt.executeQuery();
-            Garaje GarajeAll;
-            while (resultSet.next()) {
-                GarajeAll = new Garaje();
-                GarajeAll.setId_garaje(resultSet.getInt("id_garaje"));
-                GarajeAll.setNombre(resultSet.getString("Nombre"));
-                GarajeAll.setDireccion(resultSet.getString("Direccion"));
-
-                listGaraje.add(GarajeAll);
-            }
-            dbConection.close();
-            preparedStmt.close();
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Problemas  en  la  Consulta Comuniquese  con  el  Administrador");
-        }
-        return listGaraje;
-    }
-
-    public  Garaje  garjeread(String  nombre){
-
-		Garaje  GarajeRead  =  new  Garaje();
-            try{
-                dbConection  =  ConexionDB.getConexion();
-                String  selectSQL  ="SELECT  *  FROM  garaje  WHERE  nombre  =  ?"  ;
-                preparedStmt  =  dbConection.prepareStatement(selectSQL);
-                preparedStmt.setString  (1,  nombre);
-                resultSet  =  preparedStmt.executeQuery();
-                while(resultSet.next()){
-                GarajeRead .setId_garaje(resultSet.getInt("id_garaje"));   
-                GarajeRead .setNombre(resultSet.getString("nombre"));
-		GarajeRead .setDireccion(resultSet.getString("direccion"));
-		               
-                }
-                
-                dbConection.close();
-                preparedStmt.close();
-
-            }catch(SQLException  e){
-                 System.out.println(e.getMessage());
-                 JOptionPane.showMessageDialog(null,  "Problemas  en  la  Consulta Comuniquese  con  el  Administrador");
-                 
-				 }
-                return  GarajeRead ;
-       
-	   }
+    
 }
