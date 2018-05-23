@@ -11,14 +11,9 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.dao.Reserva_dao;
-import modelo.vo.Agencia;
-import modelo.vo.Reserva;
-import modelo.vo.Garaje;
-import modelo.vo.Automovil;
-import modelo.vo.Cliente;
+import modelo.dao.*;
+import modelo.vo.*;
 import vista.VistaReserva;
-import vista.VistaAutomovil;
 import vista.VistaPrincipal;
 
 
@@ -27,10 +22,14 @@ public class ContReserva implements ActionListener{
   
     private VistaReserva vista;
     private Reserva_dao modelo;
+    private Automovil_dao modeloauto;
+    private Agencia_dao modeloagencia;
+    private Cliente_dao modelocliente;
     private DefaultTableModel tablaconsulta;
     
+    
 
-    public ContReserva(VistaReserva vista, Reserva_dao modelo) {
+    public ContReserva(VistaReserva vista, Reserva_dao modelo, Agencia_dao modeloaaencia, Automovil_dao modeloauto, Cliente_dao modelocliente) {
 
         this.vista = vista;
         this.modelo = modelo;
@@ -64,11 +63,11 @@ public class ContReserva implements ActionListener{
                     JOptionPane.showMessageDialog(null, "La reserva no existe");
 
                 } else {
-                    this.vista.jTextFieldPlaca.setText(reserva.getPlaca());
+                   /* this.vista.jTextFieldPlaca.setText(reserva.getPlaca());
                     this.vista.jTextFieldMarca.setText(reserva.getMarca());
                     this.vista.jTextFieldModelo.setText(String.valueOf(reserva.getModelo()));
                     this.vista.jTextFieldPreciodia.setText(String.valueOf(reserva.getPreciodia()));
-                    
+                    */
                     
                     
                 }
@@ -84,16 +83,7 @@ public class ContReserva implements ActionListener{
           
                 JOptionPane.showMessageDialog(null, "Todos los campos son abligatorios ");
             } else {
-                Garaje garaje = new Garaje();
-                String Nombre = (String.valueOf(this.vista.jComboBoxGaraje.getSelectedItem()));
-                Automovil automovilCreate = new Automovil();
-                automovilCreate.setPlaca(vista.jTextFieldPlaca.getText());
-                automovilCreate.setMarca(vista.jTextFieldMarca.getText());
-                automovilCreate.setModelo(Integer.parseInt(vista.jTextFieldModelo.getText()));
-                automovilCreate.setPreciodia(Integer.parseInt(vista.jTextFieldPreciodia.getText()));
-                automovilCreate.setId_garaje(garaje.getId_garaje());
-                modelo.creat(automovilCreate);
-                blancosCampos();
+               
                 tabla();
 
             }
@@ -101,7 +91,7 @@ public class ContReserva implements ActionListener{
 
         if (ae.getSource().equals(this.vista.jButtonUpdate)) {
 
-            Automovil automovil = new Automovil();
+           /* Automovil automovil = new Automovil();
             
             automovil.setPlaca(vista.jTextFieldPlaca.getText());
             automovil.setMarca(vista.jTextFieldMarca.getText());
@@ -112,7 +102,7 @@ public class ContReserva implements ActionListener{
             blancosCampos();
             tabla();
             this.vista.jComboBoxAgencia.setEditable(false);
-
+*/
         }
 
         if (ae.getSource().equals(this.vista.jButtonDelete)) {
@@ -147,7 +137,7 @@ public class ContReserva implements ActionListener{
             } else {
                 Cliente cliente = new Cliente();
                 int identificacion = Integer.valueOf(this.vista.jTextFieldIdentificacion.getText());
-                cliente = modelo.clienteread(identificacion);
+                cliente = modelocliente.read(identificacion);
                 if (cliente.getNombre() == null) {
                     JOptionPane.showMessageDialog(null, "El Cliente no existe");
 
@@ -173,7 +163,7 @@ public class ContReserva implements ActionListener{
             } else {
                 Automovil automovil = new Automovil();
                 String placa = this.vista.jTextFieldPlaca.getText();
-                automovil = modelo.Automovilread(placa);
+                automovil = modeloauto.read(placa);
                 if (automovil.getPlaca()== null) {
                     JOptionPane.showMessageDialog(null, "El Automovil no existe");
 
@@ -206,7 +196,7 @@ public class ContReserva implements ActionListener{
     }
 
     public void tabla() {
-        List<Automovil> automovilTodos = modelo.automovilreadAll();
+        List<Automovil> automovilTodos = modeloauto.readAll();
         Automovil Automovilall;
         int filas = tablaconsulta.getRowCount();
 
@@ -222,7 +212,7 @@ public class ContReserva implements ActionListener{
 
             Automovilall = AutomovilIterator.next();
 
-            Object rowData[] = {Automovilall.getId_automovil(),Automovilall.getPlaca(), Automovilall.getMarca(),Automovilall.getModelo(), Automovilall.getPreciodia(),Automovilall.getId_garaje()};
+            Object rowData[] = {Automovilall.getId_automovil(),Automovilall.getPlaca(), Automovilall.getMarca(),Automovilall.getModelo(), Automovilall.getPreciodia(),Automovilall.getGaraje().getId_garaje()};
 
             tablaconsulta.addRow(rowData);
 
@@ -232,7 +222,7 @@ public class ContReserva implements ActionListener{
     
      
         public void tabla2() {
-        List<Agencia> agenciatodos = modelo.AgenciareadAll();
+        List<Agencia> agenciatodos = modeloagencia.readAll();
         Agencia Agenciaall;
         
         Iterator<Agencia> AgenciaIterator = agenciatodos.iterator();

@@ -33,9 +33,7 @@ public class Reserva_dao {
 	String insertSQL = "INSERT INTO reserva (id_reserva, id_agencia, id_automovil, id_cliente, iva, costo_final, fecha_inicio, fecha_final, estado)"+"VALUES(?,?,?,?,?,?,?,?)";
 	preparedStmt= dbConection.prepareStatement(insertSQL);
 	preparedStmt.setString (1,String.valueOf(reserva.getId_reserva()));
-        preparedStmt.setString (2,String.valueOf(reserva.getId_agencia()));
-        preparedStmt.setString (3,String.valueOf(reserva.getId_automovil()));
-        preparedStmt.setString (4,String.valueOf(reserva.getId_cliente()));
+   
         preparedStmt.setString (5,String.valueOf(reserva.getIva()));
         preparedStmt.setString (6,String.valueOf(reserva.getCosto_final()));
 	preparedStmt.setString (7,String.valueOf(reserva.getFecha_inicio()));
@@ -70,9 +68,7 @@ public class Reserva_dao {
                 resultSet  =  preparedStmt.executeQuery();
                 while(resultSet.next()){
                 reservaRead .setId_reserva(resultSet.getInt("id_reserva"));   
-                reservaRead .setId_automovil(resultSet.getInt("id_automovil"));   
-                reservaRead .setId_agencia(resultSet.getInt("id_agencia"));   
-                reservaRead .setId_cliente(resultSet.getInt("id_cliente"));   
+          
                 reservaRead .setIva(resultSet.getInt("iva"));
                 reservaRead .setCosto_final(resultSet.getInt("Costo_final"));
 		reservaRead .setFecha_inicio(resultSet.getDate("fecha_inicio"));
@@ -105,9 +101,6 @@ public class Reserva_dao {
                          preparedStmt.setString  (3,  String.valueOf(reserva.getFecha_final()));
                          preparedStmt.setString  (4,  String.valueOf(reserva.getFecha_inicio()));
                          preparedStmt.setString  (5,  String.valueOf(reserva.getCosto_final()));
-                         preparedStmt.setString  (6,  String.valueOf(reserva.getId_agencia()));
-                         preparedStmt.setString  (7,  String.valueOf(reserva.getId_automovil()));
-                         preparedStmt.setString  (8,  String.valueOf(reserva.getId_cliente()));
                          preparedStmt.setString  (9,  String.valueOf(reserva.getId_reserva()));
                          
                          resultado  =  preparedStmt.executeUpdate();
@@ -151,9 +144,7 @@ public class Reserva_dao {
                      while(resultSet.next()){
                         ReservaAll  =new  Reserva();
                         ReservaAll.setId_reserva(resultSet.getInt("id_reserva"));
-                        ReservaAll.setId_automovil(resultSet.getInt("id_automovil"));
-                        ReservaAll.setId_agencia(resultSet.getInt("id_reserva"));
-                        ReservaAll.setId_cliente(resultSet.getInt("id_cliente"));
+   
                         ReservaAll.setIva(resultSet.getInt("iva"));
                         ReservaAll.setCosto_final(resultSet.getInt("costo_final"));
                         ReservaAll.setFecha_inicio(resultSet.getDate("fecha_inicio"));

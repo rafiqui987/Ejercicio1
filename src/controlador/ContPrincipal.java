@@ -54,7 +54,7 @@ public class ContPrincipal implements ActionListener {
            this.vistaprincipal.dispose();
        }
             if (ae.getSource().equals(this.vistaprincipal.jMenuItemReserva)){
-           ContReserva reserva=new ContReserva(new VistaReserva(),new Reserva_dao());
+           ContReserva reserva=new ContReserva(new VistaReserva(),new Reserva_dao(),new Agencia_dao(), new Automovil_dao(), new Cliente_dao());
            this.vistaprincipal.dispose();
        }
              if (ae.getSource().equals(this.vistaprincipal.jMenuItemReservas)){
