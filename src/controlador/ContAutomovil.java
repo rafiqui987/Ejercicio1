@@ -19,13 +19,14 @@ import vista.VistaAutomovil;
 import vista.VistaPrincipal;
 
 public class ContAutomovil implements ActionListener {
-    
+
     private VistaAutomovil vista;
     private Automovil_dao modelo;
+    private Garaje_dao modelogaraje;
     private DefaultTableModel tablaconsulta;
     
 
-    public ContAutomovil(VistaAutomovil vista, Automovil_dao modelo) {
+    public ContAutomovil(VistaAutomovil vista, Automovil_dao modelo,Garaje_dao modelogaraje) {
 
         this.vista = vista;
         this.modelo = modelo;
@@ -35,9 +36,9 @@ public class ContAutomovil implements ActionListener {
         this.vista.jButtonDelete.addActionListener(this);
         this.vista.jButtonExit.addActionListener(this);
         this.tablaconsulta = (DefaultTableModel) this.vista.jTableAutomovil.getModel();
-       
+
         this.vista.setVisible(true);
-         tabla();
+        tabla();
         tabla2();
     }
 
@@ -54,7 +55,7 @@ public class ContAutomovil implements ActionListener {
                 Automovil automovil = new Automovil();
                 String placa = this.vista.jTextFieldPlaca.getText();
                 automovil = modelo.read(placa);
-                if (automovil.getPlaca()== null) {
+                if (automovil.getPlaca() == null) {
                     JOptionPane.showMessageDialog(null, "El Automovil no existe");
 
                 } else {
@@ -64,21 +65,19 @@ public class ContAutomovil implements ActionListener {
                     this.vista.jTextFieldPreciodia.setText(String.valueOf(automovil.getPreciodia()));
                     this.vista.jComboBoxGaraje.setVisible(false);
                     tabla();
-                    
+
                 }
             }
 
         }
         if (ae.getSource().equals(this.vista.jButtonCreate)) {
 
-            if (vista.jTextFieldMarca.getText().equals("") || 
-                vista.jTextFieldModelo.getText().equals("") || 
-                vista.jTextFieldPlaca.getText().equals("")   ||
-                vista.jTextFieldPreciodia.getText().equals("")||
-                vista.jComboBoxGaraje.getSelectedItem().equals("Selecionar")
-                  ) {
-                    
-          
+            if (vista.jTextFieldMarca.getText().equals("")
+                    || vista.jTextFieldModelo.getText().equals("")
+                    || vista.jTextFieldPlaca.getText().equals("")
+                    || vista.jTextFieldPreciodia.getText().equals("")
+                    || vista.jComboBoxGaraje.getSelectedItem().equals("Selecionar")) {
+
                 JOptionPane.showMessageDialog(null, "Todos los campos son abligatorios ");
             } else {
                 Garaje garaje = new Garaje();
@@ -89,7 +88,7 @@ public class ContAutomovil implements ActionListener {
                 automovilCreate.setMarca(vista.jTextFieldMarca.getText());
                 automovilCreate.setModelo(Integer.parseInt(vista.jTextFieldModelo.getText()));
                 automovilCreate.setPreciodia(Integer.parseInt(vista.jTextFieldPreciodia.getText()));
-                automovilCreate.setId_garaje(garaje.getId_garaje());
+                automovilCreate.setGaraje(garaje);
                 modelo.creat(automovilCreate);
                 blancosCampos();
                 tabla();
@@ -100,12 +99,11 @@ public class ContAutomovil implements ActionListener {
         if (ae.getSource().equals(this.vista.jButtonUpdate)) {
 
             Automovil automovil = new Automovil();
-            
+
             automovil.setPlaca(vista.jTextFieldPlaca.getText());
             automovil.setMarca(vista.jTextFieldMarca.getText());
             automovil.setModelo(Integer.parseInt(vista.jTextFieldModelo.getText()));
             automovil.setPreciodia(Integer.parseInt(vista.jTextFieldPreciodia.getText()));
-
             modelo.update(automovil);
             blancosCampos();
             tabla();
@@ -140,13 +138,12 @@ public class ContAutomovil implements ActionListener {
     }
 
     public void blancosCampos() {
-        
+
         vista.jTextFieldPlaca.setText("");
         vista.jTextFieldMarca.setText("");
         vista.jTextFieldModelo.setText("");
         vista.jTextFieldPreciodia.setText("");
         vista.jComboBoxGaraje.setSelectedIndex(0);
-        
 
     }
 
@@ -167,20 +164,20 @@ public class ContAutomovil implements ActionListener {
 
             Automovilall = AutomovilIterator.next();
 
-            Object rowData[] = {Automovilall.getId_automovil(),Automovilall.getPlaca(), Automovilall.getMarca(),Automovilall.getModelo(), Automovilall.getPreciodia(),Automovilall.getId_garaje()};
+            Object rowData[] = {Automovilall.getId_automovil(), Automovilall.getPlaca(), Automovilall.getMarca(), Automovilall.getModelo(), Automovilall.getPreciodia(), Automovilall.getId_garaje()};
 
             tablaconsulta.addRow(rowData);
 
         }
     }
-    
+
     /**
      *
      */
-        public void tabla2() {
+    public void tabla2() {
         List<Garaje> garajetodos = modelo.garajereadAll();
         Garaje Garajeall;
-        
+
         Iterator<Garaje> GarajeIterator = garajetodos.iterator();
         this.vista.jComboBoxGaraje.addItem("Selecionar");
         while (GarajeIterator.hasNext()) {
@@ -188,16 +185,10 @@ public class ContAutomovil implements ActionListener {
             Garajeall = GarajeIterator.next();
 
             //Object rowData[] = {Garajeall.getId_garaje(),Garajeall.getNombre(), Garajeall.getDireccion()};
-
             //tablaconsulta.addRow(rowData);
             this.vista.jComboBoxGaraje.addItem(Garajeall.getNombre());
 
         }
     }
-    
-    
 
-    
-    
-    
 }

@@ -42,7 +42,7 @@ public class ContPrincipal implements ActionListener {
            this.vistaprincipal.dispose();
        }
          if (ae.getSource().equals(this.vistaprincipal.jMenuItemAutomovil)){
-           ContAutomovil automovil=new ContAutomovil(new VistaAutomovil(),new Automovil_dao());
+           ContAutomovil automovil=new ContAutomovil(new VistaAutomovil(),new Automovil_dao(),new Garaje_dao());
            this.vistaprincipal.dispose();
        }
           if (ae.getSource().equals(this.vistaprincipal.jMenuItemCliente)){
