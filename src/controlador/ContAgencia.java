@@ -22,7 +22,8 @@ public class ContAgencia implements ActionListener {
     private VistaAgencia vista;
     private Agencia_dao modelo;
     private DefaultTableModel tablaconsulta;
-
+    private Agencia agencia = new Agencia();
+    
     public ContAgencia(VistaAgencia vista, Agencia_dao modelo) {
 
         this.vista = vista;
@@ -35,7 +36,7 @@ public class ContAgencia implements ActionListener {
         this.tablaconsulta = (DefaultTableModel) this.vista.jTableAgencia.getModel();
         tabla();
         this.vista.setVisible(true);
-
+        
     }
 
     @Override
@@ -73,12 +74,12 @@ public class ContAgencia implements ActionListener {
 
                 if (rep == 0) {
 
-                    Agencia agenciaCreate = new Agencia();
-                    agenciaCreate.setNombre(vista.jTextFieldNombre.getText());
-                    agenciaCreate.setDireccion(vista.jTextFieldDireccion.getText());
-                    agenciaCreate.setTelefono(Integer.parseInt(vista.jTextFieldTelefono.getText()));
+                    
+                    agencia.setNombre(vista.jTextFieldNombre.getText());
+                    agencia.setDireccion(vista.jTextFieldDireccion.getText());
+                    agencia.setTelefono(Integer.parseInt(vista.jTextFieldTelefono.getText()));
 
-                    modelo.creat(agenciaCreate);
+                    modelo.creat(agencia);
                     blancosCampos();
                     tabla();
                 } else {
@@ -90,7 +91,7 @@ public class ContAgencia implements ActionListener {
 
         if (ae.getSource().equals(this.vista.jButtonUpdate)) {
             
-            Agencia agencia = new Agencia();
+            
             agencia.setNombre(vista.jTextFieldNombre.getText());
             agencia.setDireccion(vista.jTextFieldDireccion.getText());
             agencia.setTelefono(Integer.parseInt(vista.jTextFieldTelefono.getText()));

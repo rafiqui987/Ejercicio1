@@ -41,7 +41,7 @@ public class ContReserva implements ActionListener{
         this.vista.jButtonCreate.addActionListener(this);
         this.vista.jButtonDelete.addActionListener(this);
         this.vista.jButtonExit.addActionListener(this);
-        this.vista.jTextFieldIdentificacion.addActionListener(this);
+        this.vista.jFormattedTextFieldIdentificacion.addActionListener(this);
         this.vista.jTextFieldPlaca.addActionListener(this);
         this.tablaconsulta = (DefaultTableModel) this.vista.jTableAutomovil.getModel();
         tabla();
@@ -66,11 +66,7 @@ public class ContReserva implements ActionListener{
                     JOptionPane.showMessageDialog(null, "La reserva no existe");
 
                 } else {
-                   /* this.vista.jTextFieldPlaca.setText(reserva.getPlaca());
-                    this.vista.jTextFieldMarca.setText(reserva.getMarca());
-                    this.vista.jTextFieldModelo.setText(String.valueOf(reserva.getModelo()));
-                    this.vista.jTextFieldPreciodia.setText(String.valueOf(reserva.getPreciodia()));
-                    */
+                   
                     
                     
                 }
@@ -79,7 +75,8 @@ public class ContReserva implements ActionListener{
         }
         if (ae.getSource().equals(this.vista.jButtonCreate)) {
 
-            if (vista.jTextFieldIdentificacion.getText().equals("") || 
+            if (vista.jFormattedTextFieldIdentificacion.getText().equals("") || 
+                vista.jTextFieldPlaca.getText().equals("") ||   
                 vista.jComboBoxAgencia.getSelectedItem().equals("Selecionar")
                   ) {
                     
@@ -132,17 +129,18 @@ public class ContReserva implements ActionListener{
 
         }
 
-        if (ae.getSource().equals(this.vista.jTextFieldIdentificacion)) {
-                 if (vista.jTextFieldIdentificacion.getText().equals("")) {
+        if (ae.getSource().equals(this.vista.jFormattedTextFieldIdentificacion)) {
+                 if (vista.jFormattedTextFieldIdentificacion.getText().equals("")) {
 
                 JOptionPane.showMessageDialog(null, "el campo Identificacion no puede estar vacio");
 
             } else {
                 Cliente cliente = new Cliente();
-                int identificacion = Integer.valueOf(this.vista.jTextFieldIdentificacion.getText());
+                int identificacion = Integer.valueOf(this.vista.jFormattedTextFieldIdentificacion.getText());
                 cliente = modelocliente.read(identificacion);
                 if (cliente.getNombre() == null) {
                     JOptionPane.showMessageDialog(null, "El Cliente no existe");
+                    
 
                 } else {
                     this.vista.jTextFieldNombre.setText(cliente.getNombre());
