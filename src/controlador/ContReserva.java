@@ -29,10 +29,13 @@ public class ContReserva implements ActionListener{
     
     
 
-    public ContReserva(VistaReserva vista, Reserva_dao modelo, Agencia_dao modeloaaencia, Automovil_dao modeloauto, Cliente_dao modelocliente) {
+    public ContReserva(VistaReserva vista, Reserva_dao modelo, Agencia_dao modeloaagencia, Automovil_dao modeloauto, Cliente_dao modelocliente) {
 
         this.vista = vista;
         this.modelo = modelo;
+        this.modeloagencia = modeloaagencia;
+        this.modeloauto = modeloauto;
+        this.modelocliente = modelocliente;
         this.vista.jButtonSelect.addActionListener(this);
         this.vista.jButtonUpdate.addActionListener(this);
         this.vista.jButtonCreate.addActionListener(this);

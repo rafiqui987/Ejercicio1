@@ -132,7 +132,7 @@ public class Automovil_dao {
 
         try {
             dbConection = ConexionDB.getConexion();
-            String selectSQL = "SELECT  *  FROM  automovil";
+            String selectSQL = "SELECT  *  FROM  automovil, garaje where automovil.id_garaje = garaje.id_garaje ";
             preparedStmt = dbConection.prepareStatement(selectSQL);
             resultSet = preparedStmt.executeQuery();
             Automovil AutomovilAll;

@@ -30,15 +30,16 @@ public class ContAutomovil implements ActionListener {
 
         this.vista = vista;
         this.modelo = modelo;
+        this.modelogaraje = modelogaraje;
         this.vista.jButtonSelect.addActionListener(this);
         this.vista.jButtonUpdate.addActionListener(this);
         this.vista.jButtonCreate.addActionListener(this);
         this.vista.jButtonDelete.addActionListener(this);
         this.vista.jButtonExit.addActionListener(this);
         this.tablaconsulta = (DefaultTableModel) this.vista.jTableAutomovil.getModel();
-
-        this.vista.setVisible(true);
         tabla();
+        this.vista.setVisible(true);
+        
         tabla2();
     }
 
