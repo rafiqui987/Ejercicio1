@@ -28,12 +28,13 @@ public class VistaConsulta extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAutomovil = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jTableReserva = new javax.swing.JTable();
+        jButtonSelect = new javax.swing.JButton();
+        jButtonExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTableAutomovil.setModel(new javax.swing.table.DefaultTableModel(
+        jTableReserva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -49,14 +50,16 @@ public class VistaConsulta extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableAutomovil);
+        jScrollPane1.setViewportView(jTableReserva);
 
-        jButton1.setText("Consultar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSelect.setText("Consultar");
+        jButtonSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonSelectActionPerformed(evt);
             }
         });
+
+        jButtonExit.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,14 +71,18 @@ public class VistaConsulta extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jButtonSelect)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonExit)
+                .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSelect)
+                    .addComponent(jButtonExit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
@@ -84,9 +91,9 @@ public class VistaConsulta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonSelectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,8 +131,9 @@ public class VistaConsulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    public javax.swing.JButton jButtonExit;
+    public javax.swing.JButton jButtonSelect;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable jTableAutomovil;
+    public javax.swing.JTable jTableReserva;
     // End of variables declaration//GEN-END:variables
 }

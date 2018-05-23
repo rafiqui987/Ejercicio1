@@ -59,6 +59,7 @@ public class ContPrincipal implements ActionListener {
        }
              if (ae.getSource().equals(this.vistaprincipal.jMenuItemReservas)){
            
+                 ContConsulta consulta=new ContConsulta(new VistaConsulta(),new Reserva_dao());
            this.vistaprincipal.dispose();
        }
               if (ae.getSource().equals(this.vistaprincipal.jMenuItemsalir)){
