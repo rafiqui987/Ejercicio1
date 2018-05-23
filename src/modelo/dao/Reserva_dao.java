@@ -33,7 +33,6 @@ public class Reserva_dao {
 	String insertSQL = "INSERT INTO reserva (id_reserva, id_agencia, id_automovil, id_cliente, iva, costo_final, fecha_inicio, fecha_final, estado)"+"VALUES(?,?,?,?,?,?,?,?)";
 	preparedStmt= dbConection.prepareStatement(insertSQL);
 	preparedStmt.setString (1,String.valueOf(reserva.getId_reserva()));
-   
         preparedStmt.setString (5,String.valueOf(reserva.getIva()));
         preparedStmt.setString (6,String.valueOf(reserva.getCosto_final()));
 	preparedStmt.setString (7,String.valueOf(reserva.getFecha_inicio()));
