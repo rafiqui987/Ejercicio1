@@ -144,10 +144,16 @@ public class Reserva_dao {
 
                      try{
                         dbConection  =  ConexionDB.getConexion();
-			String  selectSQL  ="SELECT  *  FROM  reserva"  ;
+			String  selectSQL  ="SELECT  *  FROM  reserva , cliente, agencia, automovil "
+                                + "where reserva.id_cliente = cliente.id_cliente  "
+                                + "reserva.id_agencia=agencia.id_agencia"
+                                + "reserva.idautomovil=automovil.idautomovil"  ;
                         preparedStmt  =  dbConection.prepareStatement(selectSQL);
                         resultSet  =  preparedStmt.executeQuery();
                         Reserva  ReservaAll;
+                        Agencia agencia =new Agencia();
+                        Cliente cliente =new Cliente();
+                        
                      while(resultSet.next()){
                         ReservaAll  =new  Reserva();
                         ReservaAll.setId_reserva(resultSet.getInt("id_reserva"));
