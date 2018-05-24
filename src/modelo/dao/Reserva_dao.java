@@ -20,13 +20,17 @@ import java.util.TimeZone;
 
 public class Reserva_dao {
     private Connection dbConection;
-     private PreparedStatement preparedStmt;
-     private  ResultSet  resultSet;
-
+    private PreparedStatement preparedStmt;
+    private ResultSet  resultSet;
+    private Agencia agencia =new Agencia();
+    private Cliente cliente =new Cliente();
+    private Automovil automovil =new Automovil();
+    
 	public Reserva_dao(){
 	dbConection=null;
 	preparedStmt=null;
 	resultSet=null;
+        
 	
 	}
 
@@ -145,24 +149,42 @@ public class Reserva_dao {
                      try{
                         dbConection  =  ConexionDB.getConexion();
 			String  selectSQL  ="SELECT  *  FROM  reserva , cliente, agencia, automovil "
-                                + "where reserva.id_cliente = cliente.id_cliente  "
-                                + "reserva.id_agencia=agencia.id_agencia"
-                                + "reserva.idautomovil=automovil.idautomovil"  ;
+                                + "where reserva.id_cliente = cliente.id_cliente  and "
+                                + "reserva.id_agencia=agencia.id_agencia and "
+                                + "reserva.id_automovil=automovil.id_automovil "  ;
                         preparedStmt  =  dbConection.prepareStatement(selectSQL);
                         resultSet  =  preparedStmt.executeQuery();
                         Reserva  ReservaAll;
-                        Agencia agencia =new Agencia();
-                        Cliente cliente =new Cliente();
+                        
                         
                      while(resultSet.next()){
                         ReservaAll  =new  Reserva();
                         ReservaAll.setId_reserva(resultSet.getInt("id_reserva"));
-   
+                        agencia.setId_agencia(resultSet.getInt("id_agencia"));
+                        agencia.setNombre(resultSet.getString("nombre"));
+                        agencia.setDireccion(resultSet.getString("direccion"));
+                        agencia.setTelefono(resultSet.getInt("telefono"));
+                        automovil.setId_automovil(resultSet.getInt("id_automovil"));
+                        automovil.setPlaca(resultSet.getString("placa"));
+                        automovil.setMarca(resultSet.getString("marca"));
+                        automovil.setModelo(resultSet.getInt("modelo"));
+                        automovil.setPreciodia(resultSet.getInt("preciodia"));
+                        cliente.setId_cliente(resultSet.getInt("id_cliente"));
+                        cliente.setIdentificacion(resultSet.getInt("identificacion"));
+                        cliente.setNombre(resultSet.getString("nombre"));
+                        cliente.setApellido(resultSet.getString("apellido"));
+                        cliente.setDireccion(resultSet.getString("direccion"));
+                        cliente.setTelefono(resultSet.getInt("telefono"));
                         ReservaAll.setIva(resultSet.getInt("iva"));
                         ReservaAll.setCosto_final(resultSet.getInt("costo_final"));
                         ReservaAll.setFecha_inicio(resultSet.getString("fecha_inicio"));
                         ReservaAll.setFecha_final(resultSet.getString("fecha_final"));
                         ReservaAll.setEstado(resultSet.getString("estado"));
+                        ReservaAll.setCosto(resultSet.getInt("costo"));
+                        ReservaAll.setAgencia(agencia);
+                        ReservaAll.setAutomovil(automovil);
+                        ReservaAll.setCliente(cliente);
+                        
                         listreserva.add(ReservaAll);
                              }
                         dbConection.close(); 
