@@ -15,9 +15,18 @@ public class Reserva {
     private Automovil automovil;
     private Cliente cliente;
     private int iva;
+    private int costo;
+
+    public int getCosto() {
+        return costo;
+    }
+
+    public void setCosto(int costo) {
+        this.costo = costo;
+    }
     private int costo_final;
-    private Date fecha_inicio;
-    private Date fecha_final;
+    private String fecha_inicio;
+    private String fecha_final;
     private String estado;
 
     public int getId_reserva() {
@@ -45,19 +54,19 @@ public class Reserva {
         this.costo_final = costo_final;
     }
 
-    public Date getFecha_inicio() {
+    public String getFecha_inicio() {
         return fecha_inicio;
     }
 
-    public void setFecha_inicio(Date fecha_inicio) {
+    public void setFecha_inicio(String fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public Date getFecha_final() {
+    public String getFecha_final() {
         return fecha_final;
     }
 
-    public void setFecha_final(Date fecha_final) {
+    public void setFecha_final(String fecha_final) {
         this.fecha_final = fecha_final;
     }
 
@@ -67,6 +76,30 @@ public class Reserva {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Agencia getAgencia() {
+        return agencia;
+    }
+
+    public void setAgencia(Agencia agencia) {
+        this.agencia = agencia;
+    }
+
+    public Automovil getAutomovil() {
+        return automovil;
+    }
+
+    public void setAutomovil(Automovil automovil) {
+        this.automovil = automovil;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
     
     

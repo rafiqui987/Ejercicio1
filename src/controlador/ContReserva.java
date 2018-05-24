@@ -7,8 +7,19 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.text.ParseException;
+
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.*;
@@ -26,6 +37,10 @@ public class ContReserva implements ActionListener{
     private Agencia_dao modeloagencia;
     private Cliente_dao modelocliente;
     private DefaultTableModel tablaconsulta;
+    private Cliente cliente = new Cliente();
+    private Reserva reserva = new Reserva();
+    private  Automovil automovil = new Automovil();
+    private Agencia agencia =new Agencia();
     
     
 
@@ -41,7 +56,7 @@ public class ContReserva implements ActionListener{
         this.vista.jButtonCreate.addActionListener(this);
         this.vista.jButtonDelete.addActionListener(this);
         this.vista.jButtonExit.addActionListener(this);
-        this.vista.jFormattedTextFieldIdentificacion.addActionListener(this);
+        this.vista.jTextFieldIdentificacion.addActionListener(this);
         this.vista.jTextFieldPlaca.addActionListener(this);
         this.tablaconsulta = (DefaultTableModel) this.vista.jTableAutomovil.getModel();
         tabla();
@@ -59,7 +74,7 @@ public class ContReserva implements ActionListener{
                 JOptionPane.showMessageDialog(null, "el campo Id Reserva no puede estar vacio");
 
             } else {
-                Reserva reserva = new Reserva();
+                
                 int idreserva = Integer.parseInt(this.vista.jTextFieldIdReserva.getText());
                 reserva = modelo.read(idreserva);
                 if (reserva.getEstado()== null) {
@@ -75,16 +90,46 @@ public class ContReserva implements ActionListener{
         }
         if (ae.getSource().equals(this.vista.jButtonCreate)) {
 
-            if (vista.jFormattedTextFieldIdentificacion.getText().equals("") || 
-                vista.jTextFieldPlaca.getText().equals("") ||   
+            if (vista.jTextFieldIdentificacion.getText().equals("") || 
+                vista.jTextFieldPlaca.getText().equals("") ||  
+                vista.jFormatTFFechaInicio.getText().equals("")||
+                vista.jFormatTFFechaFinal.getText().equals("")||
                 vista.jComboBoxAgencia.getSelectedItem().equals("Selecionar")
                   ) {
                     
           
                 JOptionPane.showMessageDialog(null, "Todos los campos son abligatorios ");
             } else {
-               
-                tabla();
+                
+                try {
+                    reserva.setAutomovil(automovil);
+                    reserva.setAgencia(agencia);
+                    reserva.setCliente(cliente);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+                    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+                    String Nombre = (String.valueOf(this.vista.jComboBoxAgencia.getSelectedItem()));
+                    agencia = modeloagencia.read(Nombre);
+                    reserva.setFecha_final(vista.jFormatTFFechaFinal.getText());
+                    reserva.setFecha_inicio(( vista.jFormatTFFechaInicio.getText()));
+                    Date fechaFinal = dateFormat.parse(reserva.getFecha_final());
+                    Date fechaInicial = dateFormat.parse(reserva.getFecha_inicio());
+                    int dias=(int) ((fechaFinal.getTime()-fechaInicial.getTime())/86400000);
+                    System.out.println(dias);
+                    int costo=(int) reserva.getAutomovil().getPreciodia() * dias;
+                    System.out.println(costo);
+                    vista.jTextFieldcosto.setText(String.valueOf(costo));
+                    reserva.setCosto(costo);
+                    reserva.setEstado(String.valueOf(vista.jComboBoxEstado.getSelectedItem()));
+                    reserva.setIva(Integer.parseInt(vista.jTextFielIVA.getText()));
+                    int costofinal =(int) ((costo * reserva.getIva())/100)+costo ;
+                    vista.jTextFieldCostofinal.setText(String.valueOf(costofinal));
+                    modelo.creat(reserva);
+                    blancosCampos();
+                    
+                    tabla();
+                } catch (ParseException ex) {
+                    Logger.getLogger(ContReserva.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
         }
@@ -129,14 +174,14 @@ public class ContReserva implements ActionListener{
 
         }
 
-        if (ae.getSource().equals(this.vista.jFormattedTextFieldIdentificacion)) {
-                 if (vista.jFormattedTextFieldIdentificacion.getText().equals("")) {
+        if (ae.getSource().equals(this.vista.jTextFieldIdentificacion)) {
+                 if (vista.jTextFieldIdentificacion.getText().equals("")) {
 
                 JOptionPane.showMessageDialog(null, "el campo Identificacion no puede estar vacio");
 
             } else {
-                Cliente cliente = new Cliente();
-                int identificacion = Integer.valueOf(this.vista.jFormattedTextFieldIdentificacion.getText());
+                
+                int identificacion = Integer.parseInt(this.vista.jTextFieldIdentificacion.getText());
                 cliente = modelocliente.read(identificacion);
                 if (cliente.getNombre() == null) {
                     JOptionPane.showMessageDialog(null, "El Cliente no existe");
@@ -162,7 +207,7 @@ public class ContReserva implements ActionListener{
                 JOptionPane.showMessageDialog(null, "el campo Placa no puede estar vacio");
 
             } else {
-                Automovil automovil = new Automovil();
+               
                 String placa = this.vista.jTextFieldPlaca.getText();
                 automovil = modeloauto.read(placa);
                 if (automovil.getPlaca()== null) {
@@ -191,7 +236,7 @@ public class ContReserva implements ActionListener{
         vista.jTextFieldMarca.setText("");
         vista.jTextFieldModelo.setText("");
         vista.jTextFieldPreciodia.setText("");
-        vista.jComboBoxGaraje.setSelectedIndex(0);
+//        vista.jComboBoxGaraje.setSelectedIndex(0);
         
 
     }
