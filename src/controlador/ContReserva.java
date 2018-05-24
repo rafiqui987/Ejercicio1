@@ -102,6 +102,10 @@ public class ContReserva implements ActionListener{
             } else {
                 
                 try {
+                    
+                    automovil=modeloauto.read(vista.jTextFieldPlaca.getText());
+                    agencia=modeloagencia.read(String.valueOf(vista.jComboBoxAgencia.getSelectedItem()));
+                    cliente=modelocliente.read(Integer.parseInt(vista.jTextFieldIdentificacion.getText()));
                     reserva.setAutomovil(automovil);
                     reserva.setAgencia(agencia);
                     reserva.setCliente(cliente);
@@ -123,6 +127,7 @@ public class ContReserva implements ActionListener{
                     reserva.setIva(Integer.parseInt(vista.jTextFielIVA.getText()));
                     int costofinal =(int) ((costo * reserva.getIva())/100)+costo ;
                     vista.jTextFieldCostofinal.setText(String.valueOf(costofinal));
+                    reserva.setCosto_final(costofinal);
                     modelo.creat(reserva);
                     blancosCampos();
                     

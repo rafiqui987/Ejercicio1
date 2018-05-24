@@ -34,14 +34,18 @@ public class Reserva_dao {
 	int resultado=0;
 	try{
 	dbConection = ConexionDB.getConexion();
-	String insertSQL = "INSERT INTO reserva (id_reserva, id_agencia, id_automovil, id_cliente, iva, costo_final, fecha_inicio, fecha_final, estado)"+"VALUES(?,?,?,?,?,?,?,?)";
+	String insertSQL = "INSERT INTO reserva (id_reserva, id_agencia, id_automovil, id_cliente, iva, costo_final, fecha_inicio, fecha_final, estado,costo)"+"VALUES(?,?,?,?,?,?,?,?,?,?)";
 	preparedStmt= dbConection.prepareStatement(insertSQL);
 	preparedStmt.setString (1,String.valueOf(reserva.getId_reserva()));
+        preparedStmt.setString (2,String.valueOf(reserva.getAgencia().getId_agencia()));
+        preparedStmt.setString (3,String.valueOf(reserva.getAutomovil().getId_automovil()));
+        preparedStmt.setString (4,String.valueOf(reserva.getCliente().getId_cliente()));
         preparedStmt.setString (5,String.valueOf(reserva.getIva()));
         preparedStmt.setString (6,String.valueOf(reserva.getCosto_final()));
 	preparedStmt.setString (7,String.valueOf(reserva.getFecha_inicio()));
 	preparedStmt.setString (8,String.valueOf(reserva.getFecha_final()));
         preparedStmt.setString (9,reserva.getEstado());
+        preparedStmt.setString (10,String.valueOf(reserva.getCosto()));
         
         resultado=preparedStmt.executeUpdate();
 	dbConection.close();
