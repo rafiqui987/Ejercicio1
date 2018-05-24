@@ -81,7 +81,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenu4.setText("Consulta");
 
-        jMenuItemReservas.setText("Reservas");
+        jMenuItemReservas.setText("Consultas");
         jMenu4.add(jMenuItemReservas);
 
         jMenuBar1.add(jMenu4);
