@@ -13,6 +13,10 @@ import modelo.vo.Automovil;
 import modelo.vo.Cliente;
 import modelo.vo.Reserva;
 import utilidades.ConexionDB;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
+import java.util.TimeZone;
 
 public class Reserva_dao {
     private Connection dbConection;
@@ -70,8 +74,8 @@ public class Reserva_dao {
           
                 reservaRead .setIva(resultSet.getInt("iva"));
                 reservaRead .setCosto_final(resultSet.getInt("Costo_final"));
-		reservaRead .setFecha_inicio(resultSet.getDate("fecha_inicio"));
-		reservaRead .setFecha_final(resultSet.getDate("apellido"));
+		reservaRead .setFecha_inicio(resultSet.getString("fecha_inicio"));
+		reservaRead .setFecha_final(resultSet.getString("Fecha_final"));
                 reservaRead .setEstado(resultSet.getString("Estado"));
                
                 }
@@ -146,8 +150,8 @@ public class Reserva_dao {
    
                         ReservaAll.setIva(resultSet.getInt("iva"));
                         ReservaAll.setCosto_final(resultSet.getInt("costo_final"));
-                        ReservaAll.setFecha_inicio(resultSet.getDate("fecha_inicio"));
-                        ReservaAll.setFecha_final(resultSet.getDate("fecha_final"));
+                        ReservaAll.setFecha_inicio(resultSet.getString("fecha_inicio"));
+                        ReservaAll.setFecha_final(resultSet.getString("fecha_final"));
                         ReservaAll.setEstado(resultSet.getString("estado"));
                         listreserva.add(ReservaAll);
                              }
