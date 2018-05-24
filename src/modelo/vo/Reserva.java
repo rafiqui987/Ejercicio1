@@ -16,6 +16,11 @@ public class Reserva {
     private Cliente cliente;
     private int iva;
     private int costo;
+    private int costo_final;
+    private String fecha_inicio;
+    private String fecha_final;
+    private String estado;
+    
 
     public int getCosto() {
         return costo;
@@ -24,10 +29,7 @@ public class Reserva {
     public void setCosto(int costo) {
         this.costo = costo;
     }
-    private int costo_final;
-    private String fecha_inicio;
-    private String fecha_final;
-    private String estado;
+  
 
     public int getId_reserva() {
         return Id_reserva;
