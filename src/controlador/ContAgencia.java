@@ -70,11 +70,7 @@ public class ContAgencia implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Todos los campos son abligatorios ");
             } else {
 
-                int rep = JOptionPane.showConfirmDialog(null, "Esta seguro de crear el contacto", "Aviso", JOptionPane.YES_NO_OPTION);
-
-                if (rep == 0) {
-
-                    
+                                 
                     agencia.setNombre(vista.jTextFieldNombre.getText());
                     agencia.setDireccion(vista.jTextFieldDireccion.getText());
                     agencia.setTelefono(Integer.parseInt(vista.jTextFieldTelefono.getText()));
@@ -82,9 +78,7 @@ public class ContAgencia implements ActionListener {
                     modelo.creat(agencia);
                     blancosCampos();
                     tabla();
-                } else {
-
-                }
+                
 
             }
         }

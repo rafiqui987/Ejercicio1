@@ -36,7 +36,7 @@ public class Agencia_dao {
             resultado = preparedStmt.executeUpdate();
             dbConection.close();
             preparedStmt.close();
-            JOptionPane.showMessageDialog(null, "Se ha creado una nueva agencia extitosamente");
+            JOptionPane.showMessageDialog(null, "Se ha creado extitosamente");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -108,7 +108,7 @@ public class Agencia_dao {
             resultado = preparedStmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Problemas  con  el  Borrado  de una agencia  Comuniquese  con  el  Administrador");
+            JOptionPane.showMessageDialog(null, "Problemas  con  el  Borrado Comuniquese  con  el  Administrador");
         }
 
         return resultado;

@@ -5,7 +5,6 @@
  */
 package controlador;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
@@ -21,6 +20,7 @@ public class ContCliente implements ActionListener {
     private VistaCliente vista;
     private Cliente_dao modelo;
     private DefaultTableModel tablaconsulta;
+    private Cliente cliente = new Cliente();
 
     public ContCliente(VistaCliente vista, Cliente_dao modelo) {
 
@@ -47,7 +47,7 @@ public class ContCliente implements ActionListener {
                 JOptionPane.showMessageDialog(null, "el campo Identificacion no puede estar vacio");
 
             } else {
-                Cliente cliente = new Cliente();
+
                 int identificacion = Integer.valueOf(this.vista.jTextFieldIdentificacion.getText());
                 cliente = modelo.read(identificacion);
                 if (cliente.getNombre() == null) {
@@ -65,23 +65,21 @@ public class ContCliente implements ActionListener {
         }
         if (ae.getSource().equals(this.vista.jButtonCreate)) {
 
-            if (vista.jTextFieldNombre.getText().equals("") || 
-                vista.jTextFieldDireccion.getText().equals("") || 
-                vista.jTextFieldTelefono.getText().equals("")   ||
-                vista.jTextFieldIdentificacion.getText().equals("") ||
-                vista.jTextFieldApellido.getText().equals("")) {
-                    
-          
+            if (vista.jTextFieldNombre.getText().equals("")
+                    || vista.jTextFieldDireccion.getText().equals("")
+                    || vista.jTextFieldTelefono.getText().equals("")
+                    || vista.jTextFieldIdentificacion.getText().equals("")
+                    || vista.jTextFieldApellido.getText().equals("")) {
+
                 JOptionPane.showMessageDialog(null, "Todos los campos son abligatorios ");
             } else {
 
-                Cliente clienteCreate = new Cliente();
-                clienteCreate.setIdentificacion(Integer.parseInt(vista.jTextFieldIdentificacion.getText()));
-                clienteCreate.setNombre(vista.jTextFieldNombre.getText());
-                clienteCreate.setApellido(vista.jTextFieldApellido.getText());
-                clienteCreate.setDireccion(vista.jTextFieldDireccion.getText());
-                clienteCreate.setTelefono(Integer.parseInt(vista.jTextFieldTelefono.getText()));
-                modelo.creat(clienteCreate);
+                cliente.setIdentificacion(Integer.parseInt(vista.jTextFieldIdentificacion.getText()));
+                cliente.setNombre(vista.jTextFieldNombre.getText());
+                cliente.setApellido(vista.jTextFieldApellido.getText());
+                cliente.setDireccion(vista.jTextFieldDireccion.getText());
+                cliente.setTelefono(Integer.parseInt(vista.jTextFieldTelefono.getText()));
+                modelo.creat(cliente);
                 blancosCampos();
                 tabla();
 
@@ -90,8 +88,6 @@ public class ContCliente implements ActionListener {
 
         if (ae.getSource().equals(this.vista.jButtonUpdate)) {
 
-            Cliente cliente = new Cliente();
-            
             cliente.setNombre(vista.jTextFieldNombre.getText());
             cliente.setApellido(vista.jTextFieldApellido.getText());
             cliente.setDireccion(vista.jTextFieldDireccion.getText());
@@ -130,13 +126,12 @@ public class ContCliente implements ActionListener {
     }
 
     public void blancosCampos() {
-        
+
         vista.jTextFieldIdentificacion.setText("");
         vista.jTextFieldNombre.setText("");
         vista.jTextFieldApellido.setText("");
         vista.jTextFieldDireccion.setText("");
         vista.jTextFieldTelefono.setText("");
-        
 
     }
 
@@ -157,7 +152,7 @@ public class ContCliente implements ActionListener {
 
             Clienteaall = clienteIterator.next();
 
-            Object rowData[] = {Clienteaall.getId_cliente(),Clienteaall.getIdentificacion() , Clienteaall.getNombre(),Clienteaall.getApellido(), Clienteaall.getDireccion(), String.valueOf(Clienteaall.getTelefono())};
+            Object rowData[] = {Clienteaall.getId_cliente(), Clienteaall.getIdentificacion(), Clienteaall.getNombre(), Clienteaall.getApellido(), Clienteaall.getDireccion(), String.valueOf(Clienteaall.getTelefono())};
 
             tablaconsulta.addRow(rowData);
 

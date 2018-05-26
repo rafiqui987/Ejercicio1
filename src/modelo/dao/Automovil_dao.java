@@ -17,6 +17,8 @@ public class Automovil_dao {
     private Connection dbConection;
     private PreparedStatement preparedStmt;
     private ResultSet resultSet;
+    Garaje garaje = new Garaje();
+    Automovil automovil = new Automovil();
 
     public Automovil_dao() {
         dbConection = null;
@@ -29,22 +31,21 @@ public class Automovil_dao {
         int resultado = 0;
         try {
             dbConection = ConexionDB.getConexion();
-            String insertSQL = "INSERT INTO automovil (id_automovil, placa, marca, modelo, preciodia, id_garaje)" + "VALUES(?,?,?,?,?,?)";
+            String insertSQL = "INSERT INTO automovil ( placa, marca, modelo, preciodia, id_garaje)" + "VALUES(?,?,?,?,?)";
             preparedStmt = dbConection.prepareStatement(insertSQL);
-            preparedStmt.setString(1, String.valueOf(automovil.getId_automovil()));
-            preparedStmt.setString(2, automovil.getPlaca());
-            preparedStmt.setString(3, automovil.getMarca());
-            preparedStmt.setString(4, String.valueOf(automovil.getModelo()));
-            preparedStmt.setString(5, String.valueOf(automovil.getPreciodia()));
-            preparedStmt.setString(6, String.valueOf(automovil.getGaraje().getId_garaje()));
+            preparedStmt.setString(1, automovil.getPlaca());
+            preparedStmt.setString(2, automovil.getMarca());
+            preparedStmt.setString(3, String.valueOf(automovil.getModelo()));
+            preparedStmt.setString(4, String.valueOf(automovil.getPreciodia()));
+            preparedStmt.setString(5, String.valueOf(automovil.getGaraje().getId_garaje()));
             resultado = preparedStmt.executeUpdate();
             dbConection.close();
             preparedStmt.close();
-            JOptionPane.showMessageDialog(null, "Se ha creado una nuevo automovil extitosamente");
+            JOptionPane.showMessageDialog(null, "Se ha creado extitosamente");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Problemas con la creacion  de contacto comuniquese con el administrador");
+            JOptionPane.showMessageDialog(null, "Problemas con la creacion  comuniquese con el administrador");
 
         }
 
@@ -54,8 +55,6 @@ public class Automovil_dao {
 
     public Automovil read(String placa) {
 
-        Automovil AutomovilRead = new Automovil();
-        Garaje Garaje =new Garaje();
         try {
             dbConection = ConexionDB.getConexion();
             String selectSQL = "SELECT * from automovil, garaje   where automovil.id_garaje = garaje.id_garaje and placa = ?";
@@ -63,15 +62,15 @@ public class Automovil_dao {
             preparedStmt.setString(1, placa);
             resultSet = preparedStmt.executeQuery();
             while (resultSet.next()) {
-                AutomovilRead.setId_automovil(resultSet.getInt("id_automovil"));
-                AutomovilRead.setPlaca(resultSet.getString("placa"));
-                AutomovilRead.setMarca(resultSet.getString("marca"));
-                AutomovilRead.setModelo(resultSet.getInt("modelo"));
-                AutomovilRead.setPreciodia(resultSet.getInt("preciodia"));
-                Garaje.setId_garaje(resultSet.getInt("id_garaje"));
-                Garaje.setNombre(resultSet.getString("nombre"));
-                Garaje.setDireccion(resultSet.getString("direccion"));
-                AutomovilRead.setGaraje(Garaje);
+                automovil.setId_automovil(resultSet.getInt("id_automovil"));
+                automovil.setPlaca(resultSet.getString("placa"));
+                automovil.setMarca(resultSet.getString("marca"));
+                automovil.setModelo(resultSet.getInt("modelo"));
+                automovil.setPreciodia(resultSet.getInt("preciodia"));
+                garaje.setId_garaje(resultSet.getInt("id_garaje"));
+                garaje.setNombre(resultSet.getString("nombre"));
+                garaje.setDireccion(resultSet.getString("direccion"));
+                automovil.setGaraje(garaje);
 
             }
 
@@ -83,7 +82,7 @@ public class Automovil_dao {
             JOptionPane.showMessageDialog(null, "Problemas  en  la  Consulta Comuniquese  con  el  Administrador");
 
         }
-        return AutomovilRead;
+        return automovil;
 
     }
 
@@ -136,18 +135,20 @@ public class Automovil_dao {
             preparedStmt = dbConection.prepareStatement(selectSQL);
             resultSet = preparedStmt.executeQuery();
             Automovil AutomovilAll;
-            Garaje garaje =new Garaje();
+            Garaje Garajeall;
+
             while (resultSet.next()) {
                 AutomovilAll = new Automovil();
+                Garajeall = new Garaje();
                 AutomovilAll.setId_automovil(resultSet.getInt("id_automovil"));
                 AutomovilAll.setPlaca(resultSet.getString("placa"));
                 AutomovilAll.setMarca(resultSet.getString("marca"));
                 AutomovilAll.setModelo(resultSet.getInt("modelo"));
                 AutomovilAll.setPreciodia(resultSet.getInt("preciodia"));
-                garaje.setId_garaje(resultSet.getInt("id_garaje"));
-                garaje.setNombre(resultSet.getString("nombre"));
-                garaje.setDireccion(resultSet.getString("direccion"));
-                AutomovilAll.setGaraje(garaje);
+                Garajeall.setId_garaje(resultSet.getInt("id_garaje"));
+                Garajeall.setNombre(resultSet.getString("nombre"));
+                Garajeall.setDireccion(resultSet.getString("direccion"));
+                AutomovilAll.setGaraje(Garajeall);
                 listAutomovil.add(AutomovilAll);
             }
             dbConection.close();
@@ -160,7 +161,4 @@ public class Automovil_dao {
         return listAutomovil;
     }
 
-    
-
-    
 }
