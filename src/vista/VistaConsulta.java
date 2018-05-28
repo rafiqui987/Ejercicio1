@@ -32,7 +32,7 @@ public class VistaConsulta extends javax.swing.JFrame {
         jButtonSelect = new javax.swing.JButton();
         jButtonExit = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jTableReserva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

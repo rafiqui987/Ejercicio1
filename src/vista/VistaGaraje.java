@@ -41,7 +41,7 @@ public class VistaGaraje extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableGaraje = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
