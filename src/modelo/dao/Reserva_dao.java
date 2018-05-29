@@ -16,9 +16,9 @@ public class Reserva_dao {
     private Connection dbConection;
     private PreparedStatement preparedStmt;
     private ResultSet resultSet;
-    private Agencia agencia = new Agencia();
-    private Cliente cliente = new Cliente();
-    private Automovil automovil = new Automovil();
+    private Agencia AgenciaAll = new Agencia();
+    private Cliente ClienteAll = new Cliente();
+    private Automovil AutomovilAll = new Automovil();
     private Garaje garaje = new Garaje();
     private Reserva reserva = new Reserva();
 
@@ -81,32 +81,32 @@ public class Reserva_dao {
                 reserva.setFecha_final(resultSet.getString("Fecha_final"));
                 reserva.setEstado(resultSet.getString("Estado"));
                 
-                cliente.setId_cliente(resultSet.getInt("id_cliente"));
-                cliente.setIdentificacion(resultSet.getInt("identificacion"));
-                cliente.setNombre(resultSet.getString("nombre"));
-                cliente.setApellido(resultSet.getString("apellido"));
-                cliente.setDireccion(resultSet.getString("direccion"));
-                cliente.setTelefono(resultSet.getInt("telefono"));
+                ClienteAll.setId_cliente(resultSet.getInt("id_cliente"));
+                ClienteAll.setIdentificacion(resultSet.getInt("identificacion"));
+                ClienteAll.setNombre(resultSet.getString("nombre"));
+                ClienteAll.setApellido(resultSet.getString("apellido"));
+                ClienteAll.setDireccion(resultSet.getString("direccion"));
+                ClienteAll.setTelefono(resultSet.getInt("telefono"));
 
-                agencia.setId_agencia(resultSet.getInt("id_agencia"));
-                agencia.setNombre(resultSet.getString("nombre"));
-                agencia.setDireccion(resultSet.getString("direccion"));
-                agencia.setTelefono(resultSet.getInt("telefono"));
+                AgenciaAll.setId_agencia(resultSet.getInt("id_agencia"));
+                AgenciaAll.setNombre(resultSet.getString("nombre"));
+                AgenciaAll.setDireccion(resultSet.getString("direccion"));
+                AgenciaAll.setTelefono(resultSet.getInt("telefono"));
 
-                automovil.setId_automovil(resultSet.getInt("id_automovil"));
-                automovil.setPlaca(resultSet.getString("placa"));
-                automovil.setMarca(resultSet.getString("marca"));
-                automovil.setModelo(resultSet.getInt("modelo"));
-                automovil.setPreciodia(resultSet.getInt("preciodia"));
+                AutomovilAll.setId_automovil(resultSet.getInt("id_automovil"));
+                AutomovilAll.setPlaca(resultSet.getString("placa"));
+                AutomovilAll.setMarca(resultSet.getString("marca"));
+                AutomovilAll.setModelo(resultSet.getInt("modelo"));
+                AutomovilAll.setPreciodia(resultSet.getInt("preciodia"));
 
                 garaje.setId_garaje(resultSet.getInt("id_garaje"));
                 garaje.setNombre(resultSet.getString("nombre"));
                 garaje.setDireccion(resultSet.getString("direccion"));
-                automovil.setGaraje(garaje);
+                AutomovilAll.setGaraje(garaje);
 
-                reserva.setAgencia(agencia);
-                reserva.setAutomovil(automovil);
-                reserva.setCliente(cliente);
+                reserva.setAgencia(AgenciaAll);
+                reserva.setAutomovil(AutomovilAll);
+                reserva.setCliente(ClienteAll);
 
             }
 
@@ -175,36 +175,44 @@ public class Reserva_dao {
             preparedStmt = dbConection.prepareStatement(selectSQL);
             resultSet = preparedStmt.executeQuery();
             Reserva ReservaAll;
+            Agencia AgenciaAll;
+            Automovil AutomovilAll;
+            Cliente ClienteAll;
 
             while (resultSet.next()) {
                 ReservaAll = new Reserva();
+                AgenciaAll = new Agencia();
+                AutomovilAll = new Automovil();
+                ClienteAll = new Cliente();
+                
                 ReservaAll.setId_reserva(resultSet.getInt("id_reserva"));
-                agencia.setId_agencia(resultSet.getInt("id_agencia"));
-                agencia.setNombre(resultSet.getString("nombre"));
-                agencia.setDireccion(resultSet.getString("direccion"));
-                agencia.setTelefono(resultSet.getInt("telefono"));
-                automovil.setId_automovil(resultSet.getInt("id_automovil"));
-                automovil.setPlaca(resultSet.getString("placa"));
-                automovil.setMarca(resultSet.getString("marca"));
-                automovil.setModelo(resultSet.getInt("modelo"));
-                automovil.setPreciodia(resultSet.getInt("preciodia"));
-                cliente.setId_cliente(resultSet.getInt("id_cliente"));
-                cliente.setIdentificacion(resultSet.getInt("identificacion"));
-                cliente.setNombre(resultSet.getString("nombre"));
-                cliente.setApellido(resultSet.getString("apellido"));
-                cliente.setDireccion(resultSet.getString("direccion"));
-                cliente.setTelefono(resultSet.getInt("telefono"));
+                AgenciaAll.setId_agencia(resultSet.getInt("id_agencia"));
+                AgenciaAll.setNombre(resultSet.getString("nombre"));
+                AgenciaAll.setDireccion(resultSet.getString("direccion"));
+                AgenciaAll.setTelefono(resultSet.getInt("telefono"));
+                AutomovilAll.setId_automovil(resultSet.getInt("id_automovil"));
+                AutomovilAll.setPlaca(resultSet.getString("placa"));
+                AutomovilAll.setMarca(resultSet.getString("marca"));
+                AutomovilAll.setModelo(resultSet.getInt("modelo"));
+                AutomovilAll.setPreciodia(resultSet.getInt("preciodia"));
+                ClienteAll.setId_cliente(resultSet.getInt("id_cliente"));
+                ClienteAll.setIdentificacion(resultSet.getInt("identificacion"));
+                ClienteAll.setNombre(resultSet.getString("nombre"));
+                ClienteAll.setApellido(resultSet.getString("apellido"));
+                ClienteAll.setDireccion(resultSet.getString("direccion"));
+                ClienteAll.setTelefono(resultSet.getInt("telefono"));
                 ReservaAll.setIva(resultSet.getInt("iva"));
                 ReservaAll.setCosto_final(resultSet.getInt("costo_final"));
                 ReservaAll.setFecha_inicio(resultSet.getString("fecha_inicio"));
                 ReservaAll.setFecha_final(resultSet.getString("fecha_final"));
                 ReservaAll.setEstado(resultSet.getString("estado"));
                 ReservaAll.setCosto(resultSet.getInt("costo"));
-                ReservaAll.setAgencia(agencia);
-                ReservaAll.setAutomovil(automovil);
-                ReservaAll.setCliente(cliente);
+                ReservaAll.setAgencia(AgenciaAll);
+                ReservaAll.setAutomovil(AutomovilAll);
+                ReservaAll.setCliente(ClienteAll);
 
                 listreserva.add(ReservaAll);
+                System.out.println("modelo.dao.Reserva_dao.ReservareadAll()"+ReservaAll.getCliente().getNombre());
             }
             dbConection.close();
             preparedStmt.close();

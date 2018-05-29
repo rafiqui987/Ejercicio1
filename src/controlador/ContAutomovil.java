@@ -26,9 +26,8 @@ public class ContAutomovil implements ActionListener {
     private DefaultTableModel tablaconsulta;
     private Automovil automovil = new Automovil();
     private Garaje garaje = new Garaje();
-    
 
-    public ContAutomovil(VistaAutomovil vista, Automovil_dao modelo,Garaje_dao modelogaraje) {
+    public ContAutomovil(VistaAutomovil vista, Automovil_dao modelo, Garaje_dao modelogaraje) {
 
         this.vista = vista;
         this.modelo = modelo;
@@ -41,7 +40,7 @@ public class ContAutomovil implements ActionListener {
         this.tablaconsulta = (DefaultTableModel) this.vista.jTableAutomovil.getModel();
         tabla();
         this.vista.setVisible(true);
-        
+
         tabla2();
     }
 
@@ -55,7 +54,7 @@ public class ContAutomovil implements ActionListener {
                 JOptionPane.showMessageDialog(null, "el campo Placa no puede estar vacio");
 
             } else {
-                
+
                 String placa = this.vista.jTextFieldPlaca.getText();
                 automovil = modelo.read(placa);
                 if (automovil.getPlaca() == null) {
@@ -83,7 +82,7 @@ public class ContAutomovil implements ActionListener {
 
                 JOptionPane.showMessageDialog(null, "Todos los campos son abligatorios ");
             } else {
-                
+
                 String Nombre = (String.valueOf(this.vista.jComboBoxGaraje.getSelectedItem()));
                 garaje = modelogaraje.read(Nombre);
                 Automovil automovilCreate = new Automovil();
