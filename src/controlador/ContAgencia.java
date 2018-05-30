@@ -8,6 +8,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,7 +19,7 @@ import modelo.vo.*;
 import vista.VistaAgencia;
 import vista.VistaPrincipal;
 
-public class ContAgencia implements ActionListener {
+public class ContAgencia implements FocusListener, ActionListener {
 
     private VistaAgencia vista;
     private Agencia_dao modelo;
@@ -33,6 +35,7 @@ public class ContAgencia implements ActionListener {
         this.vista.jButtonCreate.addActionListener(this);
         this.vista.jButtonDelete.addActionListener(this);
         this.vista.jButtonExit.addActionListener(this);
+        this.vista.jTextFieldTelefono.addFocusListener(this);
         this.tablaconsulta = (DefaultTableModel) this.vista.jTableAgencia.getModel();
         tabla();
         this.vista.setVisible(true);
@@ -158,5 +161,44 @@ public class ContAgencia implements ActionListener {
            }
     }
     
+    
+      public  void focusGained(FocusEvent e) {
+        
+       
+    }
+
+        public void focusLost(FocusEvent fe) {
+       
+         if(fe.getSource() == vista.jTextFieldTelefono){
+             
+             
+           boolean resutlado = isNumeric(String.valueOf(vista.jTextFieldTelefono.getText()));
+            
+           if (resutlado == false) {
+                   JOptionPane.showMessageDialog(null, "debe ingresar solo numero ");
+            System.out.println("vista.VistaAgencia.focusGained()");
+            vista.jTextFieldTelefono.setText("");
+            vista.jTextFieldTelefono.setFocusCycleRoot(false);
+                 }
+           
+            
+        }
+        }
+
+        
+        
+        public static boolean isNumeric(String cadena) {
+
+        boolean resultado;
+
+        try {
+            Integer.parseInt(cadena);
+            resultado = true;
+        } catch (NumberFormatException excepcion) {
+            resultado = false;
+        }
+
+        return resultado;
+    }
 
 }

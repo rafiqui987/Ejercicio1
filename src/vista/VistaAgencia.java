@@ -5,6 +5,14 @@
  */
 package vista;
 
+import java.awt.Color;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import org.w3c.dom.events.Event;
+import org.w3c.dom.events.EventListener;
+
 /**
  *
  * @author carlos.pedraza
@@ -16,6 +24,7 @@ public class VistaAgencia extends javax.swing.JFrame {
      */
     public VistaAgencia() {
         initComponents();
+       
     }
 
     /**
@@ -50,6 +59,12 @@ public class VistaAgencia extends javax.swing.JFrame {
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
+            }
+        });
+
+        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTelefonoActionPerformed(evt);
             }
         });
 
@@ -185,6 +200,17 @@ public class VistaAgencia extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNombreActionPerformed
 
+    private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
+    
+       
+        
+        
+        
+        
+    }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
+
+    
+  
     /**
      * @param args the command line arguments
      */
@@ -211,15 +237,34 @@ public class VistaAgencia extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VistaAgencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VistaAgencia().setVisible(true);
+                
+     
+                
+                
+                
             }
-        });
+        }
+        
+        
+        
+        );
+        
+        
+        
     }
 
+    
+   
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton jButtonCreate;
     public javax.swing.JButton jButtonDelete;
